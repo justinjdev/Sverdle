@@ -3,9 +3,13 @@
 	 * @type {string}
 	 */
 	export let key;
+
+	function clickToKeypress() {
+		document.dispatchEvent(new KeyboardEvent('keydown', { key: key }));
+	}
 </script>
 
-<button class="key" on:click={() => console.log(key)}>
+<button class="key" on:click={clickToKeypress}>
 	{key}
 </button>
 
