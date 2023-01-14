@@ -6,7 +6,7 @@
 </script>
 
 <div class="cell" {id} class:transposed class:correct>
-	{content}
+	{content.toUpperCase()}
 </div>
 
 <style>
@@ -15,6 +15,12 @@
 		height: 50px;
 		border: 1px solid lightcyan;
 		margin: 2px;
+		font-family: 'Comic Sans MS';
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: lightcyan;
+		font-size: 2rem;
 	}
 
 	.correct {

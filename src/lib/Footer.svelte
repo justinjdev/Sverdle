@@ -9,5 +9,6 @@
 		text-align: center;
 		color: lightcyan;
 		opacity: 80%;
+		font-family: 'Comic Sans MS';
 	}
 </style>
