@@ -8,7 +8,8 @@
 	.feet {
 		text-align: center;
 		color: lightcyan;
-		opacity: 80%;
+		opacity: 60%;
 		font-family: 'Comic Sans MS';
+		font-size: 0.8rem;
 	}
 </style>
