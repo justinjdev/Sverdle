@@ -15,7 +15,7 @@
 <Grid on:gameOver={handleGameOver} {answer} rowCount={answer.length} />
 
 <div class:hidden={!isOver} class="msg-wrapper" class:won={didWin}>
-	{didWin ? 'Congratulations!' : 'Maybe next time :('}
+	{didWin ? 'Congratulations!' : `It was \'${answer}\'. Maybe next time :(`}
 </div>
 
 <div class="kbContainer">
