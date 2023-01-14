@@ -30,9 +30,11 @@
 
 	.correct {
 		border: 1.2px solid lightgreen;
+		background-color: darkgreen;
 	}
 
 	.transposed {
 		border: 1.2px solid yellow;
+		background-color: darkgoldenrod;
 	}
 </style>

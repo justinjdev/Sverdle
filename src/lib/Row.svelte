@@ -58,7 +58,7 @@
 </script>
 
 <svelte:window on:keydown={keydown} />
-<div class="row" id="row_{rowNum}">
+<div class="row" id="row_{rowNum}" class:active={isActive}>
 	{#each [...Array(cells).keys()] as i}
 		<GridCell
 			id="cell_${i}"
@@ -74,5 +74,9 @@
 	.row {
 		display: flex;
 		justify-content: center;
+	}
+
+	.active {
+		scale: 1.02;
 	}
 </style>
