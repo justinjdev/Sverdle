@@ -4,6 +4,7 @@
 
 	export let answer;
 	export let rowCount;
+	let cellCount = answer.length;
 
 	let hasWon = false;
 	let hasLost = false;
@@ -23,7 +24,7 @@
 	 */
 	function handleGuess(guess) {
 		// make a guess array
-		const resArr = [...Array(rowCount).fill(2)];
+		const resArr = [...Array(cellCount).fill(2)];
 		for (let i = 0; i < guess.length; i++) {
 			if (guess[i] === answerArr[i]) {
 				resArr[i] = 0;
@@ -52,9 +53,9 @@
 	}
 </script>
 
-<Row rowNum="0" bind:isActive={active[0]} cells={rowCount} {handleGuess} />
+<Row rowNum="0" bind:isActive={active[0]} cells={cellCount} {handleGuess} />
 {#each [...Array(rowCount - 1).keys()] as i}
-	<Row rowNum={i + 1} bind:isActive={active[i + 1]} cells={rowCount} {handleGuess} />
+	<Row rowNum={i + 1} bind:isActive={active[i + 1]} cells={cellCount} {handleGuess} />
 {/each}
 
 <style>

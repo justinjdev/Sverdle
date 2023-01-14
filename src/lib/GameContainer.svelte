@@ -1,10 +1,11 @@
 <script>
+	import { getAWord } from './grid';
 	import Grid from './Grid.svelte';
 	import Keyboard from './keyboard/Keyboard.svelte';
 
 	let isOver = false;
 	let didWin = false;
-	let answer = 'crate';
+	let answer = getAWord();
 
 	function handleGameOver(e) {
 		isOver = true;
@@ -12,7 +13,7 @@
 	}
 </script>
 
-<Grid on:gameOver={handleGameOver} {answer} rowCount={answer.length} />
+<Grid on:gameOver={handleGameOver} {answer} rowCount={answer.length + 1} />
 
 <div class:hidden={!isOver} class="msg-wrapper" class:won={didWin}>
 	{didWin ? 'Congratulations!' : `It was \'${answer}\'. Maybe next time :(`}
