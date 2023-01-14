@@ -3,9 +3,10 @@
 	 * @type {string}
 	 */
 	export let key;
+	const keyPress = key === '↵' ? 'Enter' : key === '⌫' ? 'Backspace' : key;
 
 	function clickToKeypress() {
-		document.dispatchEvent(new KeyboardEvent('keydown', { key: key }));
+		document.dispatchEvent(new KeyboardEvent('keydown', { key: keyPress }));
 	}
 </script>
 
