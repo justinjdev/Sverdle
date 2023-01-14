@@ -3,13 +3,18 @@
 	export let id = '';
 	export let correct = false;
 	export let transposed = false;
+	export let activeRow = true;
 </script>
 
-<div class="cell" {id} class:transposed class:correct>
+<div class="cell" {id} class:transposed class:correct class:active={activeRow}>
 	{content.toUpperCase()}
 </div>
 
 <style>
+	.active {
+		background-color: #333;
+	}
+
 	.cell {
 		width: 50px;
 		height: 50px;
@@ -24,10 +29,10 @@
 	}
 
 	.correct {
-		border: 1px solid lightgreen;
+		border: 1.2px solid lightgreen;
 	}
 
 	.transposed {
-		border: 1px solid yellow;
+		border: 1.2px solid yellow;
 	}
 </style>

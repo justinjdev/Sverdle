@@ -8,7 +8,7 @@
 	{#each rows as row}
 		<div class="kbRow">
 			{#each row.split(' ') as key}
-				<Key {key} />
+				<Key {key} on:keydown={() => console.log('something')} />
 			{/each}
 		</div>
 	{/each}
