@@ -1,14 +1,16 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
 
+	const dispatch = createEventDispatcher();
+
 	/**
 	 * @type {string}
 	 */
 	export let key;
 	const keyPress = key === '↵' ? 'Enter' : key === '⌫' ? 'Backspace' : key;
 
-	function clickToKeydown(e) {
-		document.dispatchEvent(new KeyboardEvent('keydown', { key: keyPress }));
+	function clickToKeydown() {
+		dispatch('keyClick', { key: keyPress });
 	}
 </script>
 
