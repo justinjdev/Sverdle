@@ -4,76 +4,16 @@
 
 	export let answer;
 	export let rowCount;
-	/**
-	 * @type {string}
-	 */
-	export let clickedKey;
-
 	let cellCount = answer.length;
 
 	let hasWon = false;
 	let hasLost = false;
 
-	// used for checking guess status
 	const answerArr = answer.split('');
-
-	// tracking the active row
 	let activeRow = 0;
-
-	// lets the row know which is active for style adjustments
-	// could do that here now after refactoring
 	let active = [true, ...Array(rowCount - 2).fill(false)];
 
-	// current loc in the answer cell range (0..answer.length-1)
-	// reset with each row advancement
-	let currIdx = 0;
-
-	// get row# of arrays, filled with cell# empties
-	let rowValues = Array.from(Array(rowCount), () => Array(cellCount).fill(''));
-	let correctValues = Array.from(Array(rowCount), () => Array(cellCount).fill(false));
-	let transposedValues = Array.from(Array(rowCount), () => Array(cellCount).fill(false));
-
 	const dispatch = createEventDispatcher();
-
-	export function keydown(e) {
-		if (e.key === 'Enter') {
-			if (currIdx != cellCount) {
-				// don't let enter if we're not full
-				return;
-			}
-			currIdx = 0;
-			dealWithGuessFallout();
-			return;
-		}
-
-		if (e.key === 'Backspace' && currIdx > 0) {
-			currIdx -= 1;
-			rowValues[activeRow][currIdx] = '';
-			return;
-		}
-
-		if (currIdx == cellCount) {
-			return;
-		}
-
-		if ((e.keyCode >= 65 && e.keyCode <= 90) || (e.keyCode >= 97 && e.keyCode <= 122)) {
-			rowValues[activeRow][currIdx] = e.key;
-			currIdx += 1;
-			return;
-		}
-	}
-
-	function dealWithGuessFallout() {
-		let guessingFor = activeRow;
-		const resArr = handleGuess(rowValues[activeRow]);
-		resArr.forEach((element, idx) => {
-			if (element == 0) {
-				correctValues[guessingFor][idx] = true;
-			} else if (element == 1) {
-				transposedValues[guessingFor][idx] = true;
-			}
-		});
-	}
 
 	/**
 	 * @param {string} guess
@@ -85,7 +25,6 @@
 	function handleGuess(guess) {
 		// make a guess array
 		const resArr = [...Array(cellCount).fill(2)];
-		// TODO should prob handle occurrences properly
 		for (let i = 0; i < guess.length; i++) {
 			if (guess[i] === answerArr[i]) {
 				resArr[i] = 0;
@@ -112,38 +51,11 @@
 	$: if (hasWon || hasLost) {
 		dispatch('gameOver', { won: hasWon });
 	}
-
-	$: if (clickedKey) {
-		const argTransf = {
-			key: clickedKey,
-			keyCode: clickedKey.charCodeAt(0)
-		};
-
-		keydown(argTransf);
-		clickedKey = '';
-	}
 </script>
 
-<!-- <svelte:window on:keydown={keydown} /> -->
-<svelte:window on:keydown={keydown} />
-
-<Row
-	rowNum="0"
-	isActive={active[0]}
-	cells={cellCount}
-	entryValue={rowValues[0]}
-	correct={correctValues[0]}
-	transposed={transposedValues[0]}
-/>
+<Row rowNum="0" bind:isActive={active[0]} cells={cellCount} {handleGuess} />
 {#each [...Array(rowCount - 1).keys()] as i}
-	<Row
-		rowNum={i + 1}
-		isActive={active[i + 1]}
-		cells={cellCount}
-		entryValue={rowValues[i + 1]}
-		correct={correctValues[i + 1]}
-		transposed={transposedValues[i + 1]}
-	/>
+	<Row rowNum={i + 1} bind:isActive={active[i + 1]} cells={cellCount} {handleGuess} />
 {/each}
 
 <style>
