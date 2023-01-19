@@ -36,6 +36,9 @@
 	const dispatch = createEventDispatcher();
 
 	export function keydown(e: any) {
+		if (hasWon || hasLost) {
+			return;
+		}
 		if (e.key === 'Enter') {
 			if (currIdx != cellCount) {
 				// don't let enter if we're not full
