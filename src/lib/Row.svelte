@@ -16,10 +16,10 @@
 	{#each [...Array(cells).keys()] as i}
 		<GridCell
 			id="cell_${i}"
-			bind:content={entryValue[i]}
-			bind:correct={correct[i]}
-			bind:transposed={transposed[i]}
-			bind:activeRow={isActive}
+			content={entryValue[i]}
+			correct={correct[i]}
+			transposed={transposed[i]}
+			activeRow={isActive}
 		/>
 	{/each}
 </div>

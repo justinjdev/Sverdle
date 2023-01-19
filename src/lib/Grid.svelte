@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { pastGuesses, guessOutcomes } from '$lib/stores';
 	import Row from '$lib/Row.svelte';
 	import { createEventDispatcher } from 'svelte';
 
@@ -75,8 +76,6 @@
 	}
 
 	/**
-	 * @param {string} guess
-	 *
 	 * 0 = correct
 	 * 1 = transposed
 	 * 2 = wrong
@@ -91,6 +90,14 @@
 			} else if (answerArr.includes(guess[i])) {
 				resArr[i] = 1;
 			}
+			pastGuesses.update((current) => {
+				current.add(guess[i]);
+				return current;
+			});
+			guessOutcomes.update((current) => {
+				current.set(guess[i], resArr[i]);
+				return current;
+			});
 		}
 
 		active[activeRow] = false;
@@ -144,6 +151,3 @@
 		transposed={transposedValues[i + 1]}
 	/>
 {/each}
-
-<style>
-</style>

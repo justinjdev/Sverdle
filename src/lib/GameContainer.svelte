@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { getAWord } from './grid';
 	import Grid from './Grid.svelte';
 	import Keyboard from './keyboard/Keyboard.svelte';
@@ -12,7 +12,7 @@
 		didWin = e.detail.won;
 	}
 
-	let clickedKey;
+	let clickedKey: string = '';
 
 	function handleClick(e) {
 		clickedKey = e.detail.key;
