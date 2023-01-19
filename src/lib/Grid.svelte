@@ -35,7 +35,7 @@
 
 	const dispatch = createEventDispatcher();
 
-	export function keydown(e) {
+	export function keydown(e: any) {
 		if (e.key === 'Enter') {
 			if (currIdx != cellCount) {
 				// don't let enter if we're not full
@@ -134,7 +134,7 @@
 <svelte:window on:keydown={keydown} />
 
 <Row
-	rowNum="0"
+	rowNum={0}
 	isActive={active[0]}
 	cells={cellCount}
 	entryValue={rowValues[0]}

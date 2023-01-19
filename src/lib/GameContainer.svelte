@@ -7,14 +7,14 @@
 	let didWin = false;
 	let answer = getAWord();
 
-	function handleGameOver(e) {
+	function handleGameOver(e: any) {
 		isOver = true;
 		didWin = e.detail.won;
 	}
 
 	let clickedKey: string = '';
 
-	function handleClick(e) {
+	function handleClick(e: any) {
 		clickedKey = e.detail.key;
 	}
 </script>

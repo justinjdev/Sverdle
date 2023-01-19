@@ -1,15 +1,15 @@
-<script>
+<script lang="ts">
 	import GridCell from './GridCell.svelte';
 
 	export let isActive = false;
 
-	export let cells;
-	export let rowNum = '0';
+	export let cells: number;
+	export let rowNum = 0;
 
-	export let entryValue;
+	export let entryValue: string[];
 
-	export let correct;
-	export let transposed;
+	export let correct: boolean[];
+	export let transposed: boolean[];
 </script>
 
 <div class="row" id="row_{rowNum}" class:active={isActive}>
