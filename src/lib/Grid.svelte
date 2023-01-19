@@ -35,6 +35,46 @@
 
 	const dispatch = createEventDispatcher();
 
+	export function keydown(e) {
+		if (e.key === 'Enter') {
+			if (currIdx != cellCount) {
+				// don't let enter if we're not full
+				return;
+			}
+			currIdx = 0;
+			dealWithGuessFallout();
+			return;
+		}
+
+		if (e.key === 'Backspace' && currIdx > 0) {
+			currIdx -= 1;
+			rowValues[activeRow][currIdx] = '';
+			return;
+		}
+
+		if (currIdx == cellCount) {
+			return;
+		}
+
+		if ((e.keyCode >= 65 && e.keyCode <= 90) || (e.keyCode >= 97 && e.keyCode <= 122)) {
+			rowValues[activeRow][currIdx] = e.key;
+			currIdx += 1;
+			return;
+		}
+	}
+
+	function dealWithGuessFallout() {
+		let guessingFor = activeRow;
+		const resArr = handleGuess(rowValues[activeRow]);
+		resArr.forEach((element, idx) => {
+			if (element == 0) {
+				correctValues[guessingFor][idx] = true;
+			} else if (element == 1) {
+				transposedValues[guessingFor][idx] = true;
+			}
+		});
+	}
+
 	/**
 	 * 0 = correct
 	 * 1 = transposed
@@ -43,6 +83,7 @@
 	function handleGuess(guess: string[]) {
 		// make a guess array
 		const resArr = [...Array(cellCount).fill(2)];
+		// TODO should prob handle occurrences properly
 		for (let i = 0; i < guess.length; i++) {
 			if (guess[i] === answerArr[i]) {
 				resArr[i] = 0;
@@ -77,9 +118,36 @@
 	$: if (hasWon || hasLost) {
 		dispatch('gameOver', { won: hasWon });
 	}
+
+	$: if (clickedKey) {
+		const argTransf = {
+			key: clickedKey,
+			keyCode: clickedKey.charCodeAt(0)
+		};
+
+		keydown(argTransf);
+		clickedKey = '';
+	}
 </script>
 
-<Row rowNum="0" bind:isActive={active[0]} cells={cellCount} {handleGuess} />
+<!-- <svelte:window on:keydown={keydown} /> -->
+<svelte:window on:keydown={keydown} />
+
+<Row
+	rowNum="0"
+	isActive={active[0]}
+	cells={cellCount}
+	entryValue={rowValues[0]}
+	correct={correctValues[0]}
+	transposed={transposedValues[0]}
+/>
 {#each [...Array(rowCount - 1).keys()] as i}
-	<Row rowNum={i + 1} bind:isActive={active[i + 1]} cells={cellCount} {handleGuess} />
+	<Row
+		rowNum={i + 1}
+		isActive={active[i + 1]}
+		cells={cellCount}
+		entryValue={rowValues[i + 1]}
+		correct={correctValues[i + 1]}
+		transposed={transposedValues[i + 1]}
+	/>
 {/each}

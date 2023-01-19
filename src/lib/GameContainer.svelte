@@ -19,14 +19,14 @@
 	}
 </script>
 
-<Grid on:gameOver={handleGameOver} {answer} rowCount={answer.length + 1} />
+<Grid on:gameOver={handleGameOver} {answer} bind:clickedKey rowCount={answer.length + 1} />
 
 <div class:hidden={!isOver} class="msg-wrapper" class:won={didWin}>
 	{didWin ? 'Congratulations!' : `It was \'${answer}\'. Maybe next time :(`}
 </div>
 
 <div class="kbContainer">
-	<Keyboard on:keydown={() => console.log('something')} />
+	<Keyboard on:keyClick={handleClick} />
 </div>
 
 <style>

@@ -6,14 +6,10 @@
 
 	export let key: string;
 
-	// $: if ($pasguessed = $pastGuesses.has(keyPress);
-	// $: correct = $guessOutcomes.get(keyPress) == 0;
-	// $: transposed = $guessOutcomes.get(keyPress) == 1;
-
 	const keyPress = key === '↵' ? 'Enter' : key === '⌫' ? 'Backspace' : key;
 
-	function clickToKeydown(e) {
-		document.dispatchEvent(new KeyboardEvent('keydown', { key: keyPress }));
+	function clickToKeydown() {
+		dispatch('keyClick', { key: keyPress });
 	}
 </script>
 
