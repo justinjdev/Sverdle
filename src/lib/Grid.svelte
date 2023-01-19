@@ -1,37 +1,36 @@
-<script>
+<script lang="ts">
 	import Row from '$lib/Row.svelte';
 	import { createEventDispatcher } from 'svelte';
 
-	export let answer;
-	export let rowCount;
-	/**
-	 * @type {string}
-	 */
-	export let clickedKey;
+	export let answer: string;
+	export let rowCount: number;
+	export let clickedKey: string;
 
-	let cellCount = answer.length;
+	let cellCount: number = answer.length;
 
-	let hasWon = false;
-	let hasLost = false;
+	let hasWon: boolean = false;
+	let hasLost: boolean = false;
 
 	// used for checking guess status
-	const answerArr = answer.split('');
+	const answerArr: string[] = answer.split('');
 
 	// tracking the active row
-	let activeRow = 0;
+	let activeRow: number = 0;
 
 	// lets the row know which is active for style adjustments
 	// could do that here now after refactoring
-	let active = [true, ...Array(rowCount - 2).fill(false)];
+	let active: boolean[] = [true, ...Array(rowCount - 2).fill(false)];
 
 	// current loc in the answer cell range (0..answer.length-1)
 	// reset with each row advancement
 	let currIdx = 0;
 
 	// get row# of arrays, filled with cell# empties
-	let rowValues = Array.from(Array(rowCount), () => Array(cellCount).fill(''));
-	let correctValues = Array.from(Array(rowCount), () => Array(cellCount).fill(false));
-	let transposedValues = Array.from(Array(rowCount), () => Array(cellCount).fill(false));
+	let rowValues: string[][] = Array.from(Array(rowCount), () => Array(cellCount).fill(''));
+	let correctValues: boolean[][] = Array.from(Array(rowCount), () => Array(cellCount).fill(false));
+	let transposedValues: boolean[][] = Array.from(Array(rowCount), () =>
+		Array(cellCount).fill(false)
+	);
 
 	const dispatch = createEventDispatcher();
 
@@ -82,7 +81,7 @@
 	 * 1 = transposed
 	 * 2 = wrong
 	 */
-	function handleGuess(guess) {
+	function handleGuess(guess: string[]) {
 		// make a guess array
 		const resArr = [...Array(cellCount).fill(2)];
 		// TODO should prob handle occurrences properly
