@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { getAWord } from './grid';
 	import Grid from './Grid.svelte';
 	import Keyboard from './keyboard/Keyboard.svelte';
@@ -10,6 +10,12 @@
 	function handleGameOver(e) {
 		isOver = true;
 		didWin = e.detail.won;
+	}
+
+	let clickedKey: string = '';
+
+	function handleClick(e) {
+		clickedKey = e.detail.key;
 	}
 </script>
 

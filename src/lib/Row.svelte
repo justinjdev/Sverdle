@@ -62,7 +62,7 @@
 	{#each [...Array(cells).keys()] as i}
 		<GridCell
 			id="cell_${i}"
-			bind:content={entryValue[i]}
+			content={entryValue[i]}
 			correct={correct[i]}
 			transposed={transposed[i]}
 			activeRow={isActive}
