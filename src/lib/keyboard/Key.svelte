@@ -12,8 +12,8 @@
 
 	const keyPress = key === '↵' ? 'Enter' : key === '⌫' ? 'Backspace' : key;
 
-	function clickToKeydown() {
-		dispatch('keyClick', { key: keyPress });
+	function clickToKeydown(e) {
+		document.dispatchEvent(new KeyboardEvent('keydown', { key: keyPress }));
 	}
 </script>
 
