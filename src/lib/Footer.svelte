@@ -1,7 +1,7 @@
 <footer class="feet">
 	Comis Sans is making a comeback! <br />
 	Built with Sveltekit and a dash of ♥ <br />
-	Justin Jones // 2023
+	Justin Jones // 2023 | © 2024
 </footer>
 
 <style>
